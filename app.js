@@ -29,22 +29,7 @@ let removeInputAndButton = function(inputCount){
 
 let addInputAndButton = function (){
     
-    inputCount = inputCount + 1;
-    // var cancelBtn = document.createElement("BUTTON");
-    
-    // cancelBtn.innerHTML="cancelBtn";
-    
-    // cancelBtn.id="cancelBtn"+inputCount;
-    
-    // // cancelBtn.onclick = "";
-    // cancelBtn.setAttribute('onclick', removeInputAndButton(inputCount));
-    
-    // document.body.prepend(cancelBtn);
-    
-    // let textBox = document.createElement("INPUT");
-    // document.body.prepend(textBox);
-    // textBox.id="inputBox"+inputCount;
-    
+    inputCount = inputCount + 1;    
     
     let span = document.createElement('span');
     span.innerHTML = '<input id="inputBox'+ inputCount +'" />'+
