@@ -16,10 +16,12 @@ let removeInputAndButton = function(inputCount){
     console.log('cancelBtn' + inputCount);
     let rInput = 'inputBox' + inputCount;
     let rButton = 'cancelBtn' + inputCount;
+    let rSpan = 'span' + inputCount;
     // console.log(mainBody.children.length);
     
-    document.getElementById(rInput).remove();
-    document.getElementById(rButton).remove();
+    document.getElementById(rSpan).remove();
+    // document.getElementById(rInput).remove();
+    // document.getElementById(rButton).remove();
 
     inputCount = inputCount - 1;
 };
@@ -33,7 +35,7 @@ let addInputAndButton = function (){
     
     let span = document.createElement('span');
     span.innerHTML = '<input id="inputBox'+ inputCount +'" />'+
-                     '<button id="cancelBtn' + inputCount +'" onclick="removeInputAndButton('+ inputCount +')"> Remove </button>';
+                     '<button id="cancelBtn' + inputCount +'" onclick="removeInputAndButton('+ inputCount +')"> Remove </button><br>';
     span.id = "span"+inputCount;
     mainBody.prepend(span);
     
