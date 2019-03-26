@@ -60,19 +60,21 @@ showAllInputValues = function () {
 
     for(let i=0; i <= inputCount; i++){
         if(document.getElementById('inputBox'+i) != null){
+            if( document.getElementById('inputBox'+i).value != "" 
+                    && document.getElementById('inputBox'+i).value != null
+                    && document.getElementById('inputBox'+i).value != undefined ){
+
+                        let tr =  document.createElement('tr');
             
-            let tr =  document.createElement('tr');
-
-            let td = document.createElement('td');
-
-            let data = document.createTextNode(document.getElementById('inputBox'+i).value);
-
-            td.appendChild(data);
-            tr.appendChild(td);
-            document.getElementById('spanTable1').appendChild(tr);
-            // table.appendChild(tr);
-
-            // console.log(document.getElementById('inputBox'+i).value);
+                        let td = document.createElement('td');
+            
+                        let data = document.createTextNode(document.getElementById('inputBox'+i).value);
+            
+                        td.appendChild(data);
+                        tr.appendChild(td);
+                        document.getElementById('spanTable1').appendChild(tr);
+                        // table.appendChild(tr);
+            }
         }
     }
 }
