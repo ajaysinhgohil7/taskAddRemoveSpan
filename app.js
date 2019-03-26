@@ -1,6 +1,7 @@
 let inputCount = 0;
 
 let mainBody = document.getElementById('main');
+let showAllInputValues;
 
 let spanFirst = document.createElement('span');
 spanFirst.innerHTML = '<input id="inputBox'+ inputCount +'" />'+
@@ -17,13 +18,14 @@ let removeInputAndButton = function(inputCount){
     let rInput = 'inputBox' + inputCount;
     let rButton = 'cancelBtn' + inputCount;
     let rSpan = 'span' + inputCount;
-    // console.log(mainBody.children.length);
     
     document.getElementById(rSpan).remove();
     // document.getElementById(rInput).remove();
     // document.getElementById(rButton).remove();
-
+    
     inputCount = inputCount - 1;
+    showAllInputValues();
+
 };
 
 
@@ -42,8 +44,12 @@ let addInputAndButton = function (){
 };
 
 
-let showAllInputValues = function () {
-    
+showAllInputValues = function () {
+
+    if (document.body.contains(document.getElementById("spanTable1"))) {
+        document.getElementById("spanTable1").remove();
+    }
+
     let table = document.createElement('TABLE');
     table.id = "tableInputs";
 
@@ -69,5 +75,4 @@ let showAllInputValues = function () {
             // console.log(document.getElementById('inputBox'+i).value);
         }
     }
-
 }
