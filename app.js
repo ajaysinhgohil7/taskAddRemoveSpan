@@ -1,7 +1,12 @@
 let inputCount = 0;
 
 let mainBody = document.getElementById('main');
+let addInputAndButton;
+let removeInputAndButton;
 let showAllInputValues;
+let addToDeletedQueue;
+let checkAvailability;
+let deletedQueue = [];
 
 let spanFirst = document.createElement('span');
 spanFirst.innerHTML = '<input id="inputBox'+ inputCount +'" />'+
@@ -10,7 +15,7 @@ spanFirst.id = "span"+inputCount;
 mainBody.prepend(spanFirst);
 
 
-let removeInputAndButton = function(inputCount){
+removeInputAndButton = function(){
     console.log("inside remove " + inputCount);
 
     console.log('inputBox' + inputCount);
@@ -24,24 +29,34 @@ let removeInputAndButton = function(inputCount){
     // document.getElementById(rButton).remove();
     
     inputCount = inputCount - 1;
+    console.log(inputCount);
+    
     showAllInputValues();
-
+    addToDeletedQueue(rSpan);
+  
 };
 
 
 
 
-let addInputAndButton = function (){
+addInputAndButton = function (){
     
-    inputCount = inputCount + 1;    
-    
-    let span = document.createElement('span');
-    span.innerHTML = '<input id="inputBox'+ inputCount +'" />'+
-                     '<button id="cancelBtn' + inputCount +'" onclick="removeInputAndButton('+ inputCount +')"> Remove </button><br>';
-    span.id = "span"+inputCount;
-    mainBody.prepend(span);
+        if(checkAvailability('span'+(inputCount+1))){
+            alert('found');
+        }else{
+            alert('not found');
+
+            inputCount = inputCount + 1;    
+            let span = document.createElement('span');
+            span.innerHTML = '<input id="inputBox'+ inputCount +'" />'+
+                                '<button id="cancelBtn' + inputCount +'" onclick="removeInputAndButton('+ inputCount +')"> Remove </button><br>';
+            span.id = "span"+inputCount;
+            mainBody.prepend(span);
+        }
+
     
 };
+
 
 
 showAllInputValues = function () {
@@ -54,7 +69,7 @@ showAllInputValues = function () {
     table.id = "tableInputs";
 
     let spanTable = document.createElement('span');
-    spanTable.innerHTML = '<table id="spanTable1" style="border: 3px solid black;"></table>'
+    spanTable.innerHTML = '<table id="spanTable1" style="border: 2px solid black;"></table>';
     // spanTable.id = "spanTable1";
     mainBody.append(spanTable);
 
@@ -77,4 +92,23 @@ showAllInputValues = function () {
             }
         }
     }
+};
+
+addToDeletedQueue = function (rSpan) {
+    
+    deletedQueue.push(rSpan);
+
+    console.log("deletedQueue");
+    console.log(deletedQueue);
+
+}
+
+checkAvailability = function(newSpanID){
+    for (let i = 0; i < deletedQueue.length; i++) {
+
+        if( deletedQueue[i] == newSpanID){
+            return true;
+        }
+    }
+    return false;
 }
