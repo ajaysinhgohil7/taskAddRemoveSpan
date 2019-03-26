@@ -40,4 +40,34 @@ let addInputAndButton = function (){
     mainBody.prepend(span);
     
 };
- 
+
+
+let showAllInputValues = function () {
+    
+    let table = document.createElement('TABLE');
+    table.id = "tableInputs";
+
+    let spanTable = document.createElement('span');
+    spanTable.innerHTML = '<table id="spanTable1" style="border: 3px solid black;"></table>'
+    // spanTable.id = "spanTable1";
+    mainBody.append(spanTable);
+
+    for(let i=0; i <= inputCount; i++){
+        if(document.getElementById('inputBox'+i) != null){
+            
+            let tr =  document.createElement('tr');
+
+            let td = document.createElement('td');
+
+            let data = document.createTextNode(document.getElementById('inputBox'+i).value);
+
+            td.appendChild(data);
+            tr.appendChild(td);
+            document.getElementById('spanTable1').appendChild(tr);
+            // table.appendChild(tr);
+
+            // console.log(document.getElementById('inputBox'+i).value);
+        }
+    }
+
+}
