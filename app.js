@@ -2,11 +2,14 @@ let inputCount = 0;
 
 let mainBody = document.getElementById('main');
 let addInputAndButton;
+let addSpan;
 let removeInputAndButton;
 let showAllInputValues;
 let addToDeletedQueue;
+let deleteFromDeletedQueue;
 let checkAvailability;
 let deletedQueue = [];
+let deletedQueueSpanIDs = [];
 
 let spanFirst = document.createElement('span');
 spanFirst.innerHTML = '<input id="inputBox'+ inputCount +'" />'+
@@ -20,17 +23,10 @@ removeInputAndButton = function(e){
     console.log(e);
     console.log(e.target.parentNode.id);
     let parentNodeSpan = e.target.parentNode.id;
-    // console.log("inside remove " + inputCount);
-    // console.log('inputBox' + inputCount);
-    // console.log('cancelBtn' + inputCount);
-    // let rInput = 'inputBox' + inputCount;
-    // let rButton = 'cancelBtn' + inputCount;
-    // let rSpan = 'span' + inputCount;
+
     
     document.getElementById(parentNodeSpan).remove();
-    // document.getElementById(rInput).remove();
-    // document.getElementById(rButton).remove();
-    
+  
     inputCount = inputCount - 1;
     console.log(inputCount);
     
@@ -40,25 +36,58 @@ removeInputAndButton = function(e){
 };
 
 
+let getNumberOutOfStringArray = function () {
+    for (let i = 0; i < deletedQueue.length; i++) {
+        let element = deletedQueue[i];
+        deletedQueueSpanIDs.push(parseInt(element.match(/\d+/g)[0]));
+    }
+    return deletedQueueSpanIDs;
+}
+
 
 
 addInputAndButton = function (){
-    
-        if(checkAvailability('span'+(inputCount+1))){
-            alert('found');
-            
-        }else{
-            alert('not found');
+        let tempdeletedQueueSpanIDs = getNumberOutOfStringArray();
+        if(tempdeletedQueueSpanIDs.length > 0){
+            alert("max = " + Math.max(...tempdeletedQueueSpanIDs));
+            alert("min = " + Math.min(...tempdeletedQueueSpanIDs));
+        }
 
-            inputCount = inputCount + 1;    
+        let avalaibleID = checkAvailability('span'+(inputCount+1));
+        if(avalaibleID !== null){
+            alert('found');
+
+            deletedQueueItem = deletedQueue[avalaibleID];
+            deletedQueueItemID = deletedQueueItem.match(/\d+/g).map(Number)[0];
+
+            alert(deletedQueueItemID);
+
+            inputCount = inputCount + 1;
+            let span = document.createElement('span');
+            span.id = "span" + deletedQueueItemID;
+            span.innerHTML = '<input id="inputBox'+ deletedQueueItemID +'" />'+
+                                '<button id="cancelBtn' + deletedQueueItemID +'" onclick="removeInputAndButton(event)"> Remove </button><br>';
+            mainBody.prepend(span);
+
+
+            deletedQueue.splice(avalaibleID, 1);
+
+        }else{
+            inputCount = inputCount + 1;
             let span = document.createElement('span');
             span.id = "span"+inputCount;
             span.innerHTML = '<input id="inputBox'+ inputCount +'" />'+
                                 '<button id="cancelBtn' + inputCount +'" onclick="removeInputAndButton(event)"> Remove </button><br>';
             mainBody.prepend(span);
+
+            // addSpan();
         }
 };
 
+// addSpan = function (newID) {
+    
+   
+// };
 
 
 showAllInputValues = function () {
@@ -103,14 +132,22 @@ addToDeletedQueue = function (parentNodeSpan) {
     console.log("deletedQueue");
     console.log(deletedQueue);
 
-}
+};
+
+deleteFromDeletedQueue = function (parentNodeSpan) {
+    
+    deletedQueue.push(parentNodeSpan);
+    console.log("deletedQueue");
+    console.log(deletedQueue);
+
+};
 
 checkAvailability = function(newSpanID){
     for (let i = 0; i < deletedQueue.length; i++) {
 
-        if( deletedQueue[i] == newSpanID){
-            return true;
+        if( deletedQueue[i] == newSpanID ){
+            return i;
         }
     }
-    return false;
-}
+    return null;
+};
