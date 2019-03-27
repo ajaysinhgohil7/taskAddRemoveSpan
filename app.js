@@ -15,16 +15,19 @@ spanFirst.id = "span"+inputCount;
 mainBody.prepend(spanFirst);
 
 
-removeInputAndButton = function(){
-    console.log("inside remove " + inputCount);
-
-    console.log('inputBox' + inputCount);
-    console.log('cancelBtn' + inputCount);
-    let rInput = 'inputBox' + inputCount;
-    let rButton = 'cancelBtn' + inputCount;
-    let rSpan = 'span' + inputCount;
+removeInputAndButton = function(e){
+    // let tempVar = inputCount;
+    console.log(e);
+    console.log(e.target.parentNode.id);
+    let parentNodeSpan = e.target.parentNode.id;
+    // console.log("inside remove " + inputCount);
+    // console.log('inputBox' + inputCount);
+    // console.log('cancelBtn' + inputCount);
+    // let rInput = 'inputBox' + inputCount;
+    // let rButton = 'cancelBtn' + inputCount;
+    // let rSpan = 'span' + inputCount;
     
-    document.getElementById(rSpan).remove();
+    document.getElementById(parentNodeSpan).remove();
     // document.getElementById(rInput).remove();
     // document.getElementById(rButton).remove();
     
@@ -32,7 +35,7 @@ removeInputAndButton = function(){
     console.log(inputCount);
     
     showAllInputValues();
-    addToDeletedQueue(rSpan);
+    addToDeletedQueue(parentNodeSpan);
   
 };
 
@@ -43,18 +46,17 @@ addInputAndButton = function (){
     
         if(checkAvailability('span'+(inputCount+1))){
             alert('found');
+            
         }else{
             alert('not found');
 
             inputCount = inputCount + 1;    
             let span = document.createElement('span');
-            span.innerHTML = '<input id="inputBox'+ inputCount +'" />'+
-                                '<button id="cancelBtn' + inputCount +'" onclick="removeInputAndButton('+ inputCount +')"> Remove </button><br>';
             span.id = "span"+inputCount;
+            span.innerHTML = '<input id="inputBox'+ inputCount +'" />'+
+                                '<button id="cancelBtn' + inputCount +'" onclick="removeInputAndButton(event)"> Remove </button><br>';
             mainBody.prepend(span);
         }
-
-    
 };
 
 
@@ -94,9 +96,9 @@ showAllInputValues = function () {
     }
 };
 
-addToDeletedQueue = function (rSpan) {
+addToDeletedQueue = function (parentNodeSpan) {
     
-    deletedQueue.push(rSpan);
+    deletedQueue.push(parentNodeSpan);
 
     console.log("deletedQueue");
     console.log(deletedQueue);
