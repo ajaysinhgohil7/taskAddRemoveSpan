@@ -19,12 +19,11 @@ mainBody.prepend(spanFirst);
 
 
 removeInputAndButton = function(e){
-    // let tempVar = inputCount;
+
     console.log(e);
     console.log(e.target.parentNode.id);
     let parentNodeSpan = e.target.parentNode.id;
 
-    
     document.getElementById(parentNodeSpan).remove();
   
     inputCount = inputCount - 1;
@@ -50,13 +49,6 @@ let getNumberOutOfStringArray = function () {
 addInputAndButton = function (){
         let tempdeletedQueueSpanIDs = getNumberOutOfStringArray();
         if(tempdeletedQueueSpanIDs.length > 0){
-            // if((inputCount+1) <= Math.max(...tempdeletedQueueSpanIDs)){
-
-            // }
-            // alert("max = " + Math.max(...tempdeletedQueueSpanIDs));
-            // alert("min = " + Math.min(...tempdeletedQueueSpanIDs));
-
-            // alert(deletedQueueItemID);
 
             inputCount = inputCount + 1;
             let minDeleted = Math.min(...tempdeletedQueueSpanIDs);
@@ -74,15 +66,6 @@ addInputAndButton = function (){
             console.log(deletedQueue); 
             console.log("deletedQueueSpanIDs"); 
             console.log(deletedQueueSpanIDs); 
-        // }
-        // let avalaibleID = checkAvailability('span'+(inputCount+1));
-        // if(avalaibleID !== null){
-        //     alert('found');
-
-            // deletedQueueItem = deletedQueue[avalaibleID];
-            // deletedQueueItemID = deletedQueueItem.match(/\d+/g).map(Number)[0];
-
-          
 
         }else{
 
@@ -106,15 +89,8 @@ addInputAndButton = function (){
                                 '<button id="cancelBtn' + inputCount +'" onclick="removeInputAndButton(event)"> Remove </button><br>';
             mainBody.prepend(span);
 
-            // addSpan();
         }
 };
-
-// addSpan = function (newID) {
-    
-   
-// };
-
 
 showAllInputValues = function () {
 
@@ -126,29 +102,30 @@ showAllInputValues = function () {
     table.id = "tableInputs";
     table.style.border = "2px solid black";
 
-    // let spanTable = document.createElement('span');
-    // spanTable.innerHTML = '<table id="spanTable1" style="border: 2px solid black;"></table>';
-    // // spanTable.id = "spanTable1";
-    // mainBody.append(spanTable);
     mainBody.append(table);
 
-    for(let i=0; i <= inputCount; i++){
-        if(document.getElementById('inputBox'+i) != null){
-            if( document.getElementById('inputBox'+i).value != "" 
-                    && document.getElementById('inputBox'+i).value != null
-                    && document.getElementById('inputBox'+i).value != undefined ){
+    for(let k=0; k < mainBody.children.length; k++){
+        if(mainBody.children[k].tagName == 'SPAN'){
+            let spanElement = mainBody.children[k];
+            let inputBoxValue = spanElement.firstChild.value;
 
-                        let tr =  document.createElement('tr');
-            
-                        let td = document.createElement('td');
-            
-                        let data = document.createTextNode(document.getElementById('inputBox'+i).value);
-            
-                        td.appendChild(data);
-                        tr.appendChild(td);
-                        document.getElementById('tableInputs').appendChild(tr);
-                        // table.appendChild(tr);
+            if(spanElement != null){
+                
+                if( inputBoxValue != "" && inputBoxValue != null && inputBoxValue != undefined ){
+    
+                            let tr =  document.createElement('tr');
+                
+                            let td = document.createElement('td');
+                
+                            let data = document.createTextNode(inputBoxValue);
+                
+                            td.appendChild(data);
+                            tr.appendChild(td);
+                            document.getElementById('tableInputs').appendChild(tr);
+                            // table.appendChild(tr);
+                }
             }
+
         }
     }
 };
